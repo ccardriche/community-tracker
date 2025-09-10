@@ -1,0 +1,329 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Community Volunteer Tracker&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Inter', sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.event-card {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: box-shadow 0.3s ease-in-out;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: relative; /* Needed for delete button positioning */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.event-card:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.form-control {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>@apply w-full px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.btn {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>@apply px-4 py-2 font-semibold text-white rounded-md transition-colors duration-300;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.btn-primary {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>@apply bg-indigo-600 hover:bg-indigo-700;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.btn-secondary {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>@apply bg-gray-500 hover:bg-gray-600;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.btn-delete {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>@apply absolute top-3 right-3 p-1.5 bg-red-100 text-red-600 rounded-full hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors duration-200;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body class="bg-gray-100 text-gray-800"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="container mx-auto p-4 md:p-8 max-w-7xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;header class="text-center mb-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h1 class="text-4xl font-bold text-indigo-700"&gt;Community Volunteer Tracker&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="text-lg text-gray-600 mt-2"&gt;Let's work together to get 600 letters of support!&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/header&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="bg-white p-6 rounded-lg shadow-md mb-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2 class="text-2xl font-bold mb-4 text-gray-700"&gt;Add a New Event&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;form id="add-event-form" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label for="event-name" class="block text-sm font-medium text-gray-600 mb-1"&gt;Event Name&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;input type="text" id="event-name" class="form-control" placeholder="e.g., Community Fair" required&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label for="event-datetime" class="block text-sm font-medium text-gray-600 mb-1"&gt;Event Date &amp; Time&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;input type="datetime-local" id="event-datetime" class="form-control" required&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                 </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label for="event-address" class="block text-sm font-medium text-gray-600 mb-1"&gt;Address&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;input type="text" id="event-address" class="form-control" placeholder="e.g., 123 Main St" required&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                 </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label for="event-duration" class="block text-sm font-medium text-gray-600 mb-1"&gt;Duration (hours)&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;input type="number" id="event-duration" class="form-control" min="0.5" step="0.5" placeholder="e.g., 3.5" required&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label for="volunteers-needed" class="block text-sm font-medium text-gray-600 mb-1"&gt;Volunteers Needed&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;input type="number" id="volunteers-needed" class="form-control" min="1" placeholder="e.g., 5" required&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label for="event-type" class="block text-sm font-medium text-gray-600 mb-1"&gt;Type of Event&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;select id="event-type" class="form-control"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;option&gt;Tabling&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;option&gt;Community Fair&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;option&gt;Speaking Engagement&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;option&gt;Canvassing&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;option&gt;PPS Community Event&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;option&gt;Phone Bank&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;option&gt;Other&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label for="created-by" class="block text-sm font-medium text-gray-600 mb-1"&gt;Your Name (Creator)&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;input type="text" id="created-by" class="form-control" placeholder="e.g., Jane Doe" required&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="md:col-span-2 lg:col-span-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button type="submit" class="btn btn-primary w-full"&gt;Add Event&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/form&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2 class="text-3xl font-bold mb-6 text-gray-700"&gt;Upcoming Events&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="events-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Events will be dynamically inserted here --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">             </span>&lt;div id="loading-indicator" class="text-center py-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-gray-500"&gt;Loading events...&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script type="module"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- Firebase SDK Imports ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, arrayUnion, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- Firebase Configuration ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// These global variables are provided by the environment.</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : { apiKey: "YOUR_API_KEY", authDomain: "...", projectId: "..." };</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- Initialize Firebase ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const app = initializeApp(firebaseConfig);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const auth = getAuth(app);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const db = getFirestore(app);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>let currentUser = null;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- Authentication ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>onAuthStateChanged(auth, (user) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (user) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>currentUser = user;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>console.log("User is authenticated:", user.uid);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>loadEvents();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>console.log("User is not authenticated. Trying to sign in.");</p>
+<p class="p1"><span class="Apple-converted-space">                </span>signIn();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>async function signIn() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (initialAuthToken) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>await signInWithCustomToken(auth, initialAuthToken);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>await signInAnonymously(auth);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} catch (error) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>console.error("Error signing in:", error);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const eventsCollectionPath = `/artifacts/${appId}/public/data/events`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const eventsCollection = collection(db, eventsCollectionPath);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- DOM Elements ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const addEventForm = document.getElementById('add-event-form');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const eventsList = document.getElementById('events-list');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const loadingIndicator = document.getElementById('loading-indicator');</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- Add New Event ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>addEventForm.addEventListener('submit', async (e) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>e.preventDefault();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!currentUser) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// In a real app, use a custom modal instead of alert.</p>
+<p class="p1"><span class="Apple-converted-space">                </span>console.error("You must be signed in to add an event.");</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const eventName = document.getElementById('event-name').value;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const eventDatetime = document.getElementById('event-datetime').value;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const volunteersNeeded = parseInt(document.getElementById('volunteers-needed').value);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const eventType = document.getElementById('event-type').value;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const eventAddress = document.getElementById('event-address').value;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const eventDuration = document.getElementById('event-duration').value;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const createdBy = document.getElementById('created-by').value;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>await addDoc(eventsCollection, {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: eventName,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>datetime: eventDatetime,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>volunteersNeeded: volunteersNeeded,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>eventType: eventType,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>address: eventAddress,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>duration: parseFloat(eventDuration) || 0,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>createdBy: createdBy,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>dateCalendared: new Date().toISOString(),</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>volunteers: []</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">                </span>addEventForm.reset();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} catch (error) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>console.error("Error adding event: ", error);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- Load and Display Events ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function loadEvents() {</p>
+<p class="p1"><span class="Apple-converted-space">             </span>loadingIndicator.style.display = 'block';</p>
+<p class="p1"><span class="Apple-converted-space">             </span>eventsList.innerHTML = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>onSnapshot(eventsCollection, (snapshot) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>loadingIndicator.style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (snapshot.empty) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>eventsList.innerHTML = '&lt;p class="col-span-full text-center text-gray-500"&gt;No events scheduled yet. Add one above to get started!&lt;/p&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>const eventsHtml = snapshot.docs.map(doc =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const event = doc.data();</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const eventId = doc.id;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const volunteersSignedUp = event.volunteers ? event.volunteers.length : 0;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const volunteersRemaining = event.volunteersNeeded - volunteersSignedUp;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const eventDate = new Date(event.datetime);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const formattedDate = eventDate.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const formattedTime = eventDate.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const calendaredDate = new Date(event.dateCalendared);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const formattedCalendaredDate = calendaredDate.toLocaleDateString();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const volunteersList = event.volunteers &amp;&amp; event.volunteers.length &gt; 0</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>? event.volunteers.map(v =&gt; `&lt;li class="text-sm bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full"&gt;${v}&lt;/li&gt;`).join('')</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>: '&lt;li&gt;No volunteers yet.&lt;/li&gt;';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>return `</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="event-card bg-white p-5 rounded-lg shadow-md flex flex-col" id="${eventId}"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                             </span>&lt;button class="btn-delete" title="Delete Event"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                  </span>&lt;path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm4 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="flex-grow"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;h3 class="text-xl font-bold text-indigo-800 pr-8"&gt;${event.name}&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;p class="text-sm text-gray-500 mb-2"&gt;&lt;strong&gt;Type:&lt;/strong&gt; ${event.eventType}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;p class="text-gray-600 mb-1"&gt;&lt;strong class="font-medium"&gt;Address:&lt;/strong&gt; ${event.address || 'Not specified'}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;p class="text-gray-600 mb-2"&gt;&lt;strong class="font-medium"&gt;Duration:&lt;/strong&gt; ${event.duration ? `${event.duration} hours` : 'Not specified'}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;p class="text-lg font-semibold text-gray-700 mt-2"&gt;${formattedDate} at ${formattedTime}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;p class="text-sm text-gray-500"&gt;Date Scheduled: ${formattedCalendaredDate}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;p class="text-xs text-gray-400 italic mb-4"&gt;Created by: ${event.createdBy || 'Unknown'}&lt;/p&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                                </span></p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="bg-gray-50 p-3 rounded-md mb-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p class="font-semibold text-gray-800"&gt;Volunteers (${volunteersSignedUp}/${event.volunteersNeeded})&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;span class="text-green-600 font-bold"&gt;${volunteersRemaining &gt; 0 ? `${volunteersRemaining} spot(s) open!` : 'Fully staffed!'}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;ul class="mt-2 flex flex-wrap gap-2"&gt;${volunteersList}&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;form class="add-volunteer-form mt-auto"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;label for="volunteer-name-${eventId}" class="sr-only"&gt;Volunteer Name&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="flex gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;input type="text" id="volunteer-name-${eventId}" class="form-control flex-grow" placeholder="Your Name" required ${volunteersRemaining &lt;= 0 ? 'disabled' : ''}&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;button type="submit" class="btn btn-primary whitespace-nowrap" ${volunteersRemaining &lt;= 0 ? 'disabled' : ''}&gt;Sign Up&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/form&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}).join('');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>eventsList.innerHTML = eventsHtml;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>addVolunteerFormListeners();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>addDeleteListeners();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>}, (error) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>console.error("Error fetching events:", error);</p>
+<p class="p1"><span class="Apple-converted-space">                 </span>loadingIndicator.style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>eventsList.innerHTML = '&lt;p class="col-span-full text-center text-red-500"&gt;Could not load events. Please check the console for errors.&lt;/p&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- Add Volunteer ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function addVolunteerFormListeners() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const volunteerForms = document.querySelectorAll('.add-volunteer-form');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>volunteerForms.forEach(form =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>form.addEventListener('submit', async (e) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>e.preventDefault();</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (!currentUser) {</p>
+<p class="p1"><span class="Apple-converted-space">                         </span>console.error("You must be signed in to volunteer.");</p>
+<p class="p1"><span class="Apple-converted-space">                         </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const eventCard = e.target.closest('.event-card');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const eventId = eventCard.id;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const volunteerNameInput = eventCard.querySelector(`input[id^="volunteer-name-"]`);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const volunteerName = volunteerNameInput.value.trim();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if(volunteerName) {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>const eventDocRef = doc(db, eventsCollectionPath, eventId);</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>await updateDoc(eventDocRef, {</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>volunteers: arrayUnion(volunteerName)</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>volunteerNameInput.value = '';</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>} catch(error) {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>console.error("Error signing up: ", error);</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- Delete Event ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function addDeleteListeners() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const deleteButtons = document.querySelectorAll('.btn-delete');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>deleteButtons.forEach(button =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>button.addEventListener('click', async (e) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const eventCard = e.currentTarget.closest('.event-card');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const eventId = eventCard.id;</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const eventDocRef = doc(db, eventsCollectionPath, eventId);</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>await deleteDoc(eventDocRef);</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>// The onSnapshot listener will automatically remove the card from the UI.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>} catch(error) {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>console.error("Error deleting event: ", error);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+<p class="p2"><br></p>
+</body>
+</html>
